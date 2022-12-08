@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="sweetalert2/sweetalert2.min.css" />
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Camera</title>
+    <style>
+        .swal2-popup {
+            font-size: 1.6rem !important;
+        }
+    </style>
+
+    <style>
+        .video-wrap {
+            display: flex;
+            justify-content: center;
+        }
+        .controller {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="video-wrap">
+            <video id="video" playsinline autoplay></video>
+        </div>
+
+        <div class="controller">
+        <button id="snap" onclick="jepret()"><i class="fa fa-camera fa-5x" aria-hidden="true"></i></button>
+        </div>
+
+        <section class="p-5">
+            <div class="container">
+                <div class="row" text-center g-4>
+                    <div class="col-md">
+                        <div class="card bg-danger text-light">
+                            <div class="card-body">
+                                <p><h3>RESULT</h3></p>
+                                <div class ="result">
+                                <canvas id="canvas" width="320" height="240" style="float:left"></canvas>
+                                <P style="text-align:justify;"> HASIL GAMBAR Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, earum vel dolorum doloremque neque voluptas nemo suscipit odio pariatur minus, aut exercitationem possimus aperiam laboriosam obcaecati explicabo praesentium placeat ex. </P>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            
+        <section class="p-5">
+        <p>LIST BARANG</p>
+            
+                
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                            <img src="pancilistrik2.jpg">
+                            <h3>PANCI LISTRIK SERBA GUNA</h3>
+                            <p>
+                                MURAH BANGET LOH!
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                
+
+    
+    
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                            <img src="mangkokplastik4.jpg">
+                            <h3>MANGKOK PLASTIK ANTI PECAH BRO</h3>
+                            <p>
+                                RILL NO FEK
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+      
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                            <img src="piringkaca1.jpg">
+                            <h3>PIRING KACA MURAH SEKALI</h3>
+                            <p>
+                                GRATIS ONGKIR LHO
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+
+        </section>
+
+    <script src="sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        'use strict';
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snap = document.getElementById('snap');
+        const errorMsgElement = document.getElementById('span#errorMsg');
+
+        const constraints = {
+            audio: false,
+            video: {
+                width: 640, height: 480
+            }
+        };
+
+        async function init() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            } catch (e) {
+                errorMsgElement.innerHTML = `navigator.getUserMedia.error:${e.toString()}`;
+            }
+        }
+    
+        function handleSuccess(stream) {
+            window.stream = stream;
+            video.srcObject = stream;
+        }
+
+        init();
+
+        var context = canvas.getContext('2d');
+        snap.addEventListener("click", function() {
+            context.drawImage(video, 0, 0, 320, 240);
+        });
+
+        
+    </script>
+    <script>
+        function jepret() {
+            swal.fire({
+                tittle: "SNAP",
+                text: "Picture has been taken",
+                icon:"success", 
+                button: true
+            })
+        }
+    </script>
+    </body>
+    </html>
